@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.ResourceLocation;
@@ -61,31 +62,12 @@ public class FileManager {
             String str = br.readLine();
             while (str != null) {
 
-                if (str.startsWith("#") || str.trim().length() == 0) {
+                if (str.trim().startsWith("#") || str.trim().length() == 0) {
                     str = br.readLine();
                     continue;
                 }
 
-                String[] datas = str.split("=");
-
-                try {
-
-                    int mp = Integer.parseInt(datas[1]);
-                    String[] item = datas[0].split(":");
-
-                    if (item[0].equals("block")) {
-
-                        Block block = Block.REGISTRY.getObject(new ResourceLocation(item[1], item[2]));
-                        int meta = Integer.parseInt(item[3]);
-                        MCEconomyAPI.addPurchaseItem(new ItemStack(block, 1, meta), mp);
-
-                    } else if (item[0].equals("item")) {
-
-                    }
-
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
+                this.registerMP(str);
 
                 str = br.readLine();
 
@@ -111,7 +93,26 @@ public class FileManager {
 
     }
 
-    public void registerMP(String name, int mp) {
+    public void registerMP(String str) {
+
+        String[] datas = str.split("=");
+
+        int mp = Integer.parseInt(datas[1]);
+        String[] data = datas[0].split(":");
+
+        if (data[0].equals("block")) {
+
+            Block block = Block.REGISTRY.getObject(new ResourceLocation(data[1], data[2]));
+            int meta = Integer.parseInt(data[3]);
+            MCEconomyAPI.addPurchaseItem(new ItemStack(block, 1, meta), mp);
+
+        } else if (data[0].equals("item")) {
+
+            Item item = Item.REGISTRY.getObject(new ResourceLocation(data[1], data[2]));
+            int meta = Integer.parseInt(data[3]);
+            MCEconomyAPI.addPurchaseItem(new ItemStack(item, 1, meta), mp);
+
+        }
 
     }
 
