@@ -1,0 +1,2 @@
+# MCEconomy3Compat
+MCEconomy3と他のModを連携するMod
