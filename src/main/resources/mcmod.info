@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mceconomy3compat",
+  "name": "MCEconomy3 Compat",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [""],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
