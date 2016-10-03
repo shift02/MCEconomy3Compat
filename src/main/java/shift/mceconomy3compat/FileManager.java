@@ -2,9 +2,14 @@ package shift.mceconomy3compat;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Enumeration;
+import java.util.jar.JarFile;
+import java.util.zip.ZipEntry;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -55,9 +60,60 @@ public class FileManager {
 
         MCEconomy3Compat.log.info("Load File - " + file);
 
+        try {
+
+            this.loadDataFromInputStream(new FileInputStream(file));
+
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+
+    }
+
+    public void loadMPFromJar() {
+
+        JarFile jar = null;
+
+        try {
+
+            jar = new JarFile(this.directory);
+            Enumeration files = jar.entries();
+            while (files.hasMoreElements()) {
+                ZipEntry entry = (ZipEntry) files.nextElement();
+
+                if (entry.isDirectory()) continue;
+
+                if (entry.getName().startsWith("assets/mceconomy3compat/purchase") && entry.getName().endsWith(".mp")) {
+
+                    try {
+                        this.loadDataFromInputStream(jar.getInputStream(entry));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+            }
+
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } finally {
+
+            if (jar != null) try {
+                jar.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    public void loadDataFromInputStream(InputStream in) {
+
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader(file));
+            br = new BufferedReader(new InputStreamReader(in));
 
             String str = br.readLine();
             while (str != null) {
@@ -86,10 +142,6 @@ public class FileManager {
                 }
             }
         }
-
-    }
-
-    public void loadMPFromJar() {
 
     }
 
