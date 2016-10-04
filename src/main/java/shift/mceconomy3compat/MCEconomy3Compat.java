@@ -22,7 +22,7 @@ public class MCEconomy3Compat {
     @EventHandler
     public void init(FMLPreInitializationEvent event) {
 
-        manager = new FileManager(event.getSourceFile());
+        manager = new FileManager(event.getSourceFile(), event.getModConfigurationDirectory());
 
     }
 

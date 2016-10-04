@@ -23,14 +23,20 @@ public class FileManager {
     private File directory;
     private boolean isFile;
 
-    public FileManager(File directory) {
+    private File config;
+
+    public FileManager(File directory, File config) {
 
         this.directory = directory;
         this.isFile = directory.isDirectory() && (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
+        this.config = config;
+
     }
 
     public void loadMP() {
+
+        this.loadMPFromConfigs();
 
         if (isFile) {
             this.loadMPFromFiles();
@@ -44,6 +50,22 @@ public class FileManager {
     public void loadMPFromFiles() {
 
         File mpFile = new File(directory, "./assets/mceconomy3compat/purchase");
+        File files[] = mpFile.listFiles();
+
+        for (File file : files) {
+
+            if (file.isDirectory()) continue;
+            if (!file.getName().endsWith(".mp")) continue;
+            this.loadMPFromFile(file);
+
+        }
+
+    }
+
+    public void loadMPFromConfigs() {
+
+        File mpFile = new File(config, "./mceconomy3compat/purchase");
+        if (!mpFile.exists()) mpFile.mkdirs();
         File files[] = mpFile.listFiles();
 
         for (File file : files) {
