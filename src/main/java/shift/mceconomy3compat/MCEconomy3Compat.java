@@ -109,7 +109,6 @@ public class MCEconomy3Compat {
         EntityVillager v = (EntityVillager) event.getTarget();
         VillagerProfession vp = v.getProfessionForge();
         vp = v.getProfessionForge();
-        System.out.println(vp.getRegistryName());
         if (!(vp.getRegistryName().getResourceDomain().equals(MODID) && vp.getRegistryName().getResourcePath().equals("moneychanger"))) return;
 
         event.setCanceled(true);

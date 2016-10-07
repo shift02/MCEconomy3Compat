@@ -47,10 +47,6 @@ public class ItemCoin extends Item {
 
             MCEconomyAPI.addPlayerMP(playerIn, itemStackIn.getItemDamage(), false);
 
-            System.out.println(MCEconomy3Compat.shopID);
-            MCEconomyAPI.openShopGui(MCEconomy3Compat.shopID, playerIn, worldIn, (int) playerIn.posX,
-                    (int) playerIn.posY, (int) playerIn.posZ);
-
         }
 
         return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
