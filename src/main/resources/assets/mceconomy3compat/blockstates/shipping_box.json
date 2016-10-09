@@ -1,0 +1,25 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube",
+    "textures": {
+      "particle": "mceconomy3compat:blocks/shipping_box_bottom",
+      "down": "mceconomy3compat:blocks/shipping_box_bottom",
+      "up": "mceconomy3compat:blocks/shipping_box_top",
+      "north": "mceconomy3compat:blocks/shipping_box",
+      "east": "mceconomy3compat:blocks/shipping_box",
+      "south": "mceconomy3compat:blocks/shipping_box",
+      "west": "mceconomy3compat:blocks/shipping_box"
+    },
+    "transform": "forge:default-block",
+    "uvlock": false
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ]
+  }
+}

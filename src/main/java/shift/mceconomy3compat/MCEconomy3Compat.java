@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -45,6 +47,8 @@ public class MCEconomy3Compat {
 
     public static Item coin;
 
+    public static Block shippingBox;
+
     public static VillagerProfession moneychanger;
 
     public static int shopID;
@@ -63,6 +67,21 @@ public class MCEconomy3Compat {
             ModelLoader.setCustomModelResourceLocation(coin, 0, new ModelResourceLocation(l, "inventory"));
 
         }
+
+        //出荷箱
+        shippingBox = new BlockShippingBox().setRegistryName(MODID, "shipping_box").setUnlocalizedName("mce3c.shipping_box");
+        ItemBlock itemBlock = new ItemBlock(shippingBox);
+        if (event.getSide().isClient()) {
+
+            ResourceLocation l = new ResourceLocation(MCEconomy3Compat.MODID, "shipping_box");
+
+            // ブロック状態の登録
+            //ModelLoader.setCustomStateMapper(shippingBox);
+            // アイテム状態の登録
+            ModelLoader.setCustomModelResourceLocation(itemBlock, 0, new ModelResourceLocation(l, "inventory"));
+        }
+        GameRegistry.register(shippingBox);
+        GameRegistry.register(itemBlock.setRegistryName(MODID, "shipping_box"));
 
         //村人
         VillagerProfession moneychanger = new VillagerProfession(MODID + ":" + "moneychanger",
