@@ -44,7 +44,7 @@ public class BlockShippingBox extends Block {
 
         worldIn.playSound(
                 (EntityPlayer) null, playerIn.posX, playerIn.posY, playerIn.posZ,
-                SoundEvents.BLOCK_CLOTH_FALL, SoundCategory.NEUTRAL, 2.0F, 0.4F / (worldIn.rand.nextFloat() * 0.4F + 0.8F));
+                SoundEvents.BLOCK_CLOTH_FALL, SoundCategory.NEUTRAL, 2.8F, 0.4F / (worldIn.rand.nextFloat() * 0.4F + 0.8F));
 
         heldItem.stackSize = 0;
 

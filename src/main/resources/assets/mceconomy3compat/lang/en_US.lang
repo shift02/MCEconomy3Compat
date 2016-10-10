@@ -1,4 +1,7 @@
 #Item
 item.mce3c.coin.name=MP Coin
 
+#Block
+tile.mce3c.shipping_box.name=Shipping Box
+
 moneychanger=Moneychanger

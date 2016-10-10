@@ -9,7 +9,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -112,11 +111,10 @@ public class MCEconomy3Compat {
             }
         });
 
-        System.out.println(shopID);
-
         MCEconomyAPI.getShop(shopID).addProduct(new ProductBase(new ItemStack(coin, 1, 100), 100));
         MCEconomyAPI.getShop(shopID).addProduct(new ProductBase(new ItemStack(coin, 1, 1000), 1000));
         MCEconomyAPI.getShop(shopID).addProduct(new ProductBase(new ItemStack(coin, 1, 10000), 10000));
+        MCEconomyAPI.getShop(shopID).addProduct(new ProductBase(new ItemStack(shippingBox, 1), 0));
 
         MinecraftForge.EVENT_BUS.register(this);
 
@@ -182,8 +180,6 @@ public class MCEconomy3Compat {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        // some example code
-        System.out.println("DIRT BLOCK >> " + Blocks.DIRT.getUnlocalizedName());
 
     }
 
@@ -191,6 +187,8 @@ public class MCEconomy3Compat {
     public void init(FMLPostInitializationEvent event) {
 
         manager.loadMP();
+
+        MCEconomyAPI.addPurchaseItem(new ItemStack(shippingBox), 0);
 
         MCEconomyAPI.addPurchaseItem(new IPurchaseItem() {
 
