@@ -13,10 +13,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -135,6 +137,47 @@ public class MCEconomy3Compat {
         if (!event.getWorld().isRemote) MCEconomyAPI.openShopGui(shopID, event.getEntityPlayer(), event.getWorld(), (int) event.getEntityPlayer().posX,
                 (int) event.getEntityPlayer().posY, (int) event.getEntityPlayer().posZ);
 
+    }
+
+    @SubscribeEvent
+    public void LivingUpdateEvent(LivingUpdateEvent event) {
+
+        if (!(event.getEntity() instanceof EntityPlayer)) return;
+        EntityPlayer entityPlayer = (EntityPlayer) event.getEntity();
+
+        if (this.getHour(entityPlayer.worldObj) != 7 || this.getMinute(entityPlayer.worldObj) != 0) return;
+
+        NBTTagCompound nbt = entityPlayer.getEntityData();
+        int sMP = nbt.getInteger(MCEconomy3Compat.MODID + ":" + "shipping_box_mp");
+
+        if (sMP == 0) return;
+
+        nbt.setInteger(MCEconomy3Compat.MODID + ":" + "shipping_box_mp", 0);
+
+        MCEconomyAPI.addPlayerMP(entityPlayer, sMP, false);
+
+    }
+
+    public int getHour(World world) {
+
+        long t = world.getWorldInfo().getWorldTime() % 24000;
+        t += 6000;
+        if (t >= 24000) t -= 24000;
+
+        return (int) (t / 1000);
+
+    }
+
+    public int getMinute(World world) {
+
+        long t = world.getWorldInfo().getWorldTime() % 24000;
+        t += 6000;
+        if (t >= 24000) t -= 24000;
+        if (t >= 12000) {
+            t -= 12000;
+        }
+
+        return (int) ((t % 1000) / (1000f / 60f));
     }
 
     @EventHandler
