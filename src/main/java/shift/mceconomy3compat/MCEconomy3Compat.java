@@ -112,6 +112,7 @@ public class MCEconomy3Compat {
             }
         });
 
+        MCEconomyAPI.getShop(shopID).addProduct(new ProductBase(new ItemStack(coin, 1, 1), 1));
         MCEconomyAPI.getShop(shopID).addProduct(new ProductBase(new ItemStack(coin, 1, 100), 100));
         MCEconomyAPI.getShop(shopID).addProduct(new ProductBase(new ItemStack(coin, 1, 1000), 1000));
         MCEconomyAPI.getShop(shopID).addProduct(new ProductBase(new ItemStack(coin, 1, 10000), 10000));
