@@ -39,7 +39,7 @@ import shift.mceconomy3.api.shop.ProductBase;
 @Mod(modid = MCEconomy3Compat.MODID, version = MCEconomy3Compat.VERSION, dependencies = MCEconomy3Compat.DEPENDENCY)
 public class MCEconomy3Compat {
     public static final String MODID = "mceconomy3compat";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.0.1";
 
     public static final String DEPENDENCY = "after:mceconomy3";
 

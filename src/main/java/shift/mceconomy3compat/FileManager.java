@@ -145,7 +145,11 @@ public class FileManager {
                     continue;
                 }
 
-                this.registerMP(str);
+                try {
+                    this.registerMP(str);
+                } catch (Exception e) {
+                    MCEconomy3Compat.log.catching(e);
+                }
 
                 str = br.readLine();
 
