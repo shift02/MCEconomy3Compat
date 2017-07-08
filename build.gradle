@@ -13,6 +13,7 @@ buildscript {
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
 
 /*
 // for people who want stable - not yet functional for MC 1.8.8 - we require the forgegradle 2.1 snapshot
@@ -21,13 +22,16 @@ plugins {
 }
 */
 version = "1.0.1"
-group= "shitf.mceconomy3compat" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group= "shift.mceconomy3compat" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "mceconomy3compat"
 
 sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
 compileJava {
     sourceCompatibility = targetCompatibility = "1.8"
 }
+
+//日本語
+tasks.withType(AbstractCompile)*.options*.encoding = tasks.withType(GroovyCompile)*.groovyOptions*.encoding = 'UTF-8'
 
 minecraft {
     version = "1.10.2-12.18.1.2094"
@@ -100,4 +104,17 @@ task devJar(type: Jar) {
 
 artifacts {
     archives devJar
+}
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            if (project.hasProperty('mavenfolder')) {
+                repository(url: project.mavenfolder)
+            }else{
+                repository(url: uri('/docs/maven'))
+            }
+        }
+    }
 }
